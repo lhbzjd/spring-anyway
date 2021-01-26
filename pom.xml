@@ -15,6 +15,14 @@
     <version>1.0</version>
     <modules>
         <module>authorize-provider</module>
+        <module>anyway-gateway</module>
+        <module>anyway-tool</module>
+        <module>anyway-web</module>
+        <module>anyway-persistence</module>
+        <module>anyway-message</module>
+        <module>anyway-uid-generate</module>
+        <module>anyway-plugin</module>
+        <module>anyway-common</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -50,10 +58,28 @@
         <spring.boot.version>2.3.7.RELEASE</spring.boot.version>
         <spring.cloud.version>Hoxton.SR9</spring.cloud.version>
         <security.oauth2.version>2.3.5.RELEASE</security.oauth2.version>
-        <spring.cloud.alibaba.version>2.1.1.RELEASE</spring.cloud.alibaba.version>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <sonatypeOssDistMgmtSnapshotsUrl>https://oss.sonatype.org/content/repositories/snapshots/</sonatypeOssDistMgmtSnapshotsUrl>
         <arguments />
+
+        <dcm4che.version>5.16.2</dcm4che.version>
+        <jai.imageio.version>1.1</jai.imageio.version>
+        <mybatis.boot.starter.version>2.0.1</mybatis.boot.starter.version>
+        <sitemesh.version>3.0.1</sitemesh.version>
+        <orika.version>1.5.4</orika.version>
+        <poi.version>3.9</poi.version>
+        <guava.version>27.0-jre</guava.version>
+        <zxing.version>3.3.3</zxing.version>
+        <fastjson.version>1.1.41</fastjson.version>
+        <awsjavasdk.version>1.11.166</awsjavasdk.version>
+        <huawei.obssdk.version>3.20.3</huawei.obssdk.version>
+        <jedis.version>2.9.0</jedis.version>
+        <hessian.version>4.0.38</hessian.version>
+        <itextpdf.version>5.5.13</itextpdf.version>
+        <rribbit.version>4.0.0</rribbit.version>
+        <resilience4j.version>0.15.0</resilience4j.version>
+        <commons-lang3.version>3.9</commons-lang3.version>
+        <commons-beanutils.version>1.9.3</commons-beanutils.version>
+        <spring.cloud.alibaba.version>2.1.3.RELEASE</spring.cloud.alibaba.version>
     </properties>
 
     <dependencyManagement>
@@ -203,17 +229,6 @@
             <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
         </repository>
     </distributionManagement>
-
-    <!--<distributionManagement>-->
-        <!--<snapshotRepository>-->
-            <!--<id>snapshots</id>-->
-            <!--<url>http://218.60.3.200:8081/nexus/content/repositories/snapshots/</url>-->
-        <!--</snapshotRepository>-->
-        <!--<repository>-->
-            <!--<id>releases</id>-->
-            <!--<url>http://218.60.3.200:8081/nexus/content/repositories/releases/</url>-->
-        <!--</repository>-->
-    <!--</distributionManagement>-->
 
     <profiles>
         <profile>

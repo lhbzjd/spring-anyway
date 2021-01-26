@@ -13,3 +13,8 @@
  </p>  
 
 ## SpringAnyway微服务集群开发平台
+
+
+TODO  seata分布式事务整合
+      租户(tenant)、用户(user)、角色(role)、资源(resource)、权限
+      jwt单点授权
