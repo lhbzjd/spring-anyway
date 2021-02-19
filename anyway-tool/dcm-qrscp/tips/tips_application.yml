@@ -1,0 +1,12 @@
+dicom:
+  qr:
+    scp:
+      bind: DCMQRSCP@127.0.0.1:11112
+      ae:
+        config: D:\\thumbnail\\dcmqrscp\\ae.properties
+      file: D:\\thumbnail\\dcmqrscp\\store\\record-file
+      subscriber:
+        core-pool-size: 20
+        maximum-pool-size: 50
+        keep-alive-time: 60
+        work-queue-capacity: 2000
