@@ -17,7 +17,7 @@ import org.springframework.context.annotation.Configuration;
  * <br>@version : 1.0
  */
 @Configuration
-public class BeanConfig {
+public class AnywayBeanConfig {
 
     @Bean
     public ConfigurableMapper orikaMapper() {

@@ -108,17 +108,19 @@ public class FileUtil {
             ImageReader imageReader = iterator.next();
             DicomImageReadParam dicomImageReadParam = (DicomImageReadParam) imageReader
                     .getDefaultReadParam();
+            ImageInputStream iis = null;
             try {
-                ImageInputStream iis = ImageIO
+                iis = ImageIO
                         .createImageInputStream(srcDicomFile);
                 imageReader.setInput(iis, false);
                 myJpegImage = imageReader.read(0, dicomImageReadParam);
-                iis.close();
                 if (myJpegImage == null) {
                     return;
                 }
             } catch (IOException e) {
                 e.printStackTrace();
+            }finally {
+                closeIO(iis);
             }
             OutputStream outputStream = null;
             try {

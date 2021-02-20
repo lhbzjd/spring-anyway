@@ -22,7 +22,7 @@ import javax.sql.DataSource;
 import java.util.Properties;
 
 @Configuration
-@MapperScan(basePackages = {"ink.anyway.*.db.mapper", "ink.anyway.**.mapper"}, sqlSessionFactoryRef = "sqlSessionFactory")
+@MapperScan(basePackages = {"ink.anyway.*.db.mapper", "**.mapper"}, sqlSessionFactoryRef = "sqlSessionFactory")
 public class DataSourceConfig {
 
     @RefreshScope

@@ -28,4 +28,7 @@ public class DicomInfo {
     private int instanceNumber;
     private String instanceUid;
     private String localFilePath;
+
+    private Boolean haveHandle;
+
 }

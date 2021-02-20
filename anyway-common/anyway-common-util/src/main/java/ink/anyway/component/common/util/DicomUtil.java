@@ -1,5 +1,6 @@
 package ink.anyway.component.common.util;
 
+import com.google.common.math.IntMath;
 import ink.anyway.component.common.pojo.DicomInfo;
 import org.dcm4che3.data.Attributes;
 import org.dcm4che3.data.Tag;
@@ -53,6 +54,23 @@ public class DicomUtil {
         info.setImageDataTypeSequence(attrs.getString(Tag.ImageDataTypeSequence));
         info.setInstanceNumber(attrs.getInt(Tag.InstanceNumber, 1));
         info.setInstanceUid(attrs.getString(Tag.SOPInstanceUID));
+    }
+
+    public static void main(String[] args){
+
+//        System.out.println(getLongest2("aa aa aaaa aaa a a a aa aa a"));
+
+//        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//        System.out.println(sdf.format(new Date()));
+
+        System.out.println(pow(5, 5));
+
+        System.out.println(pow(5, 5));
+
+        System.out.println(IntMath.pow(5,5));
+
+        System.out.println(forPow(5, 5));
+
     }
 
     public static int getLongest(String input){

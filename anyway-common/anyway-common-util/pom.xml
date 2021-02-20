@@ -53,12 +53,6 @@
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
             <version>${guava.version}</version>
-            <!--<exclusions>-->
-            <!--<exclusion>-->
-            <!--<groupId>com.google.errorprone</groupId>-->
-            <!--<artifactId>error_prone_annotations</artifactId>-->
-            <!--</exclusion>-->
-            <!--</exclusions>-->
         </dependency>
 
         <dependency>
@@ -137,12 +131,6 @@
             <version>${resilience4j.version}</version>
         </dependency>
 
-        <!--<dependency>-->
-        <!--<groupId>cn.ctyun</groupId>-->
-        <!--<artifactId>oos-sdk</artifactId>-->
-        <!--<version>5.0.0</version>-->
-        <!--</dependency>-->
-
         <dependency>
             <groupId>com.amazonaws</groupId>
             <artifactId>aws-java-sdk</artifactId>
@@ -218,6 +206,7 @@
         <!--<artifactId>jetcd-core</artifactId>-->
         <!--<version>0.0.2</version>-->
         <!--</dependency>-->
+
 
     </dependencies>
 

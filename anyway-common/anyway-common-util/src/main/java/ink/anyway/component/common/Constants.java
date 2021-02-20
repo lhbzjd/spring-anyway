@@ -5,8 +5,16 @@ import java.util.List;
 
 public class Constants {
 
-    public static List<String> cityAreaList = Arrays.asList("沈阳市", "大连市", "鞍山市", "抚顺市", "本溪市", "丹东市", "锦州市", "营口市", "阜新市", "辽阳市", "盘锦市", "铁岭市", "朝阳市", "葫芦岛市");
+    public static List<String> lnCityAreaList = Arrays.asList("沈阳市", "大连市", "鞍山市", "抚顺市", "本溪市", "丹东市", "锦州市", "营口市", "阜新市", "辽阳市", "盘锦市", "铁岭市", "朝阳市", "葫芦岛市");
     public static List<String> hljCityAreaList = Arrays.asList("哈尔滨市", "齐齐哈尔市", "牡丹江市", "佳木斯市", "大庆市", "鸡西市", "双鸭山市", "伊春市", "七台河市", "鹤岗市", "黑河市", "绥化市", "大兴安岭地区");
+    public static List<String> jlCityAreaList = Arrays.asList("长春市");
+    public static List<String> hnCityAreaList = Arrays.asList("郑州市");
+    public static List<String> hbCityAreaList = Arrays.asList("石家庄市");
+    public static List<String> sdCityAreaList = Arrays.asList("济南市");
+    public static List<String> zjCityAreaList = Arrays.asList("杭州市");
+    public static List<String> jsCityAreaList = Arrays.asList("南京市");
+    public static List<String> fjCityAreaList = Arrays.asList("福州市");
+    public static List<String> gdCityAreaList = Arrays.asList("广州市");
 
     public static final String ONLINE_USER_SESSION_NAME = "userOnLine";
 
