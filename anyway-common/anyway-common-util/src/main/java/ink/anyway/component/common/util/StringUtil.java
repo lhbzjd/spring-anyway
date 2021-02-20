@@ -7,6 +7,8 @@ import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @ClassName: StringUtil
@@ -108,6 +110,27 @@ public class StringUtil {
 			return composeWithRegex(unions.toArray(new String[unions.size()]), regex);
 		}
 		return "";
+	}
+
+	public final static String filterPositiveIntStr(String input){
+		if(!isValid(input))
+			return "";
+		String regEx="[^0-9]";
+		Pattern pattern = Pattern.compile(regEx);
+		Matcher matcher = pattern.matcher(input);
+		return matcher.replaceAll("").trim();
+	}
+
+	public final static int filterPositiveInt(String input){
+		int res = -1;
+		try{
+			res = Integer.parseInt(filterPositiveIntStr(input));
+		}catch (Exception e){
+			logger.warn("", e);
+		}
+		if(res<0)
+			res = 0;
+		return res;
 	}
 
 }
