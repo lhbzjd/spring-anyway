@@ -115,10 +115,15 @@ public class StringUtil {
 	public final static String filterPositiveIntStr(String input){
 		if(!isValid(input))
 			return "";
-		String regEx="[^0-9]";
-		Pattern pattern = Pattern.compile(regEx);
-		Matcher matcher = pattern.matcher(input);
-		return matcher.replaceAll("").trim();
+		try{
+			String regEx="[^0-9]";
+			Pattern pattern = Pattern.compile(regEx);
+			Matcher matcher = pattern.matcher(input);
+			return matcher.replaceAll("").trim();
+		}catch (Exception e){
+			logger.warn("", e);
+		}
+		return "";
 	}
 
 	public final static int filterPositiveInt(String input){
