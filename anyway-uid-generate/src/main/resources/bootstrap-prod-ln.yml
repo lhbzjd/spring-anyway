@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: generator-uid-server
+  cloud:
+    config:
+      uri: http://172.21.11.13:7005/
+      profile: prod

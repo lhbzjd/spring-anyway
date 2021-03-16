@@ -17,8 +17,8 @@ package com.baidu.fsg.uid.worker;
 
 import com.baidu.fsg.uid.utils.DockerUtils;
 import com.baidu.fsg.uid.utils.NetUtils;
-import com.neusoft.micia.uid.generator.db.mapper.WorkerNodeMapper;
 import com.baidu.fsg.uid.worker.entity.WorkerNodeEntity;
+import ink.anyway.standing.uid.generate.db.mapper.WorkerNodeMapper;
 import org.apache.commons.lang.math.RandomUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,9 +1,9 @@
 package com.baidu.fsg.uid.config;
 
-import com.neusoft.micia.common.plugin.CustomConfigPlugin;
-
+import ink.anyway.component.common.plugin.CustomConfigPlugin;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
 
@@ -14,6 +14,7 @@ import org.springframework.web.client.RestTemplate;
  * <br>@version : 1.0
  */
 @Configuration
+@ComponentScan(basePackages = { "ink.anyway"})
 public class CustomBeanConfig {
 
     @Bean
@@ -26,8 +27,6 @@ public class CustomBeanConfig {
     public CustomConfigPlugin customConfigPlugin() {
 
         return CustomConfigPlugin.builder()
-
-
 
                 .build();
     }
