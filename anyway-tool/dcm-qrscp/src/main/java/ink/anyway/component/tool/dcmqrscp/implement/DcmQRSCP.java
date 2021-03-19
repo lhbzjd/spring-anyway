@@ -171,7 +171,8 @@ public class DcmQRSCP {
             String cuid = rq.getString(Tag.AffectedSOPClassUID);
             String iuid = rq.getString(Tag.AffectedSOPInstanceUID);
             String tsuid = pc.getTransferSyntax();
-            File file = new File(StringUtil.compose(storageDir.getAbsolutePath(), "/", sdf.format(new Date()), "/", StringUtil.UUID()));
+            String taskId = StringUtil.UUID();
+            File file = new File(StringUtil.compose(storageDir.getAbsolutePath(), "/", sdf.format(new Date()), "/", taskId));
             try {
                 Attributes fmi = as.createFileMetaInformation(iuid, cuid, tsuid);
                 storeTo(as, fmi, data, file);
@@ -189,12 +190,12 @@ public class DcmQRSCP {
                 info.setHaveHandle(false);
 
                 if(this.receiveHandler!=null){
-                    this.receiveHandler.doReceive(StringUtil.UUID(), info);
+                    this.receiveHandler.doReceive(taskId, info);
                 }
 
                 /**  eventBus 为异步执行，无法保证事件不丢失，暂时废弃，后期进行完善
                 if(info.getHaveHandle()!=null&&!info.getHaveHandle()&&this.eventBus!=null){
-                    this.eventBus.post(new DcmQrReceiveEvent(StringUtil.UUID(), System.currentTimeMillis(), info));
+                    this.eventBus.post(new DcmQrReceiveEvent(taskId, System.currentTimeMillis(), info));
                 }
                  */
 
