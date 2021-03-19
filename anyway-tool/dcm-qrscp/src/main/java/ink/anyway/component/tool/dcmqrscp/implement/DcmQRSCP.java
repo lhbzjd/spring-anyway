@@ -171,7 +171,7 @@ public class DcmQRSCP {
             String cuid = rq.getString(Tag.AffectedSOPClassUID);
             String iuid = rq.getString(Tag.AffectedSOPInstanceUID);
             String tsuid = pc.getTransferSyntax();
-            File file = new File(StringUtil.compose(storageDir.getAbsolutePath(), "/", sdf.format(new Date()), "/", iuid));
+            File file = new File(StringUtil.compose(storageDir.getAbsolutePath(), "/", sdf.format(new Date()), "/", StringUtil.UUID()));
             try {
                 Attributes fmi = as.createFileMetaInformation(iuid, cuid, tsuid);
                 storeTo(as, fmi, data, file);
