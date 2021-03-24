@@ -35,6 +35,7 @@ import org.dcm4che3.net.Status;
 import org.dcm4che3.net.pdu.AAssociateRQ;
 import org.dcm4che3.net.pdu.PresentationContext;
 import org.dcm4che3.tool.common.CLIUtils;
+import org.dcm4che3.tool.common.DicomFiles;
 import org.dcm4che3.util.SafeClose;
 import org.dcm4che3.util.TagUtils;
 import org.slf4j.Logger;
@@ -360,7 +361,38 @@ public class StoreScuProvider {
         List<FileToSend> fileToSends = new ArrayList<>();
         for(File mo:toSendFiles){
             if(mo!=null&&mo.exists()&&mo.isFile()){
-                FileToSend fileToSend = preSendFile(mo);
+                FileToSend fileToSend = new FileToSend();
+                DicomFiles.scan(Arrays.asList(mo.getAbsolutePath()), true, (f, fmi, dsPos, ds) -> {
+                    fileToSend.setIuid(fmi.getString(Tag.MediaStorageSOPInstanceUID));
+                    fileToSend.setCuid(fmi.getString(Tag.MediaStorageSOPClassUID));
+                    fileToSend.setTs(fmi.getString(Tag.TransferSyntaxUID));
+                    fileToSend.setDsPos(dsPos);
+                    fileToSend.setToSend(f);
+
+                    if (fileToSend.getCuid() == null || fileToSend.getIuid() == null)
+                        return false;
+
+                    if (rq.containsPresentationContextFor(fileToSend.getCuid(), fileToSend.getTs()))
+                        return true;
+
+                    if (!rq.containsPresentationContextFor(fileToSend.getCuid())) {
+                        if (relExtNeg)
+                            rq.addCommonExtendedNegotiation(relSOPClasses
+                                    .getCommonExtendedNegotiation(fileToSend.getCuid()));
+                        if (!fileToSend.getTs().equals(UID.ExplicitVRLittleEndian))
+                            rq.addPresentationContext(new PresentationContext(rq
+                                    .getNumberOfPresentationContexts() * 2 + 1, fileToSend.getCuid(),
+                                    UID.ExplicitVRLittleEndian));
+                        if (!fileToSend.getTs().equals(UID.ImplicitVRLittleEndian))
+                            rq.addPresentationContext(new PresentationContext(rq
+                                    .getNumberOfPresentationContexts() * 2 + 1, fileToSend.getCuid(),
+                                    UID.ImplicitVRLittleEndian));
+                    }
+                    rq.addPresentationContext(new PresentationContext(rq
+                            .getNumberOfPresentationContexts() * 2 + 1, fileToSend.getCuid(), fileToSend.getTs()));
+                    return true;
+                });
+
                 if(fileToSend!=null)
                     fileToSends.add(fileToSend);
             }
@@ -391,57 +423,5 @@ public class StoreScuProvider {
         }
 
         return succFiles;
-    }
-
-    public FileToSend preSendFile(File preSend){
-        DicomInputStream in = null;
-        try {
-            in = new DicomInputStream(preSend);
-            in.setIncludeBulkData(IncludeBulkData.NO);
-            Attributes fmi = in.readFileMetaInformation();
-            Attributes ds = in.readDataset(-1, Tag.PixelData);
-            if (fmi == null || !fmi.containsValue(Tag.TransferSyntaxUID)
-                    || !fmi.containsValue(Tag.MediaStorageSOPClassUID)
-                    || !fmi.containsValue(Tag.MediaStorageSOPInstanceUID))
-                fmi = ds.createFileMetaInformation(in.getTransferSyntax());
-
-            FileToSend fts = new FileToSend();
-            fts.setIuid(fmi.getString(Tag.MediaStorageSOPInstanceUID));
-            fts.setCuid(fmi.getString(Tag.MediaStorageSOPClassUID));
-            fts.setTs(fmi.getString(Tag.TransferSyntaxUID));
-            fts.setDsPos(in.getPosition());
-            fts.setToSend(preSend);
-
-            if (fts.getCuid() == null || fts.getIuid() == null)
-                return null;
-
-            if (rq.containsPresentationContextFor(fts.getCuid(), fts.getTs()))
-                return fts;
-
-            if (!rq.containsPresentationContextFor(fts.getCuid())) {
-                if (relExtNeg)
-                    rq.addCommonExtendedNegotiation(relSOPClasses
-                            .getCommonExtendedNegotiation(fts.getCuid()));
-                if (!fts.getTs().equals(UID.ExplicitVRLittleEndian))
-                    rq.addPresentationContext(new PresentationContext(rq
-                            .getNumberOfPresentationContexts() * 2 + 1, fts.getCuid(),
-                            UID.ExplicitVRLittleEndian));
-                if (!fts.getTs().equals(UID.ImplicitVRLittleEndian))
-                    rq.addPresentationContext(new PresentationContext(rq
-                            .getNumberOfPresentationContexts() * 2 + 1, fts.getCuid(),
-                            UID.ImplicitVRLittleEndian));
-            }
-            rq.addPresentationContext(new PresentationContext(rq
-                    .getNumberOfPresentationContexts() * 2 + 1, fts.getCuid(), fts.getTs()));
-
-            return fts;
-        } catch (Exception e) {
-            System.out.println();
-            System.out.println("Failed to scan file " + preSend + ": " + e.getMessage());
-            e.printStackTrace(System.out);
-        } finally {
-            SafeClose.close(in);
-        }
-        return null;
     }
 }
