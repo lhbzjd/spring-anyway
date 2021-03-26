@@ -225,6 +225,17 @@ public class FileUtil {
         }
     }
 
+    public static boolean deleteFile(File toDelete) {
+        try{
+            if(toDelete!=null&&toDelete.exists()){
+                return toDelete.delete();
+            }
+        }catch (Exception e){
+            logger.warn("delete file failed !", e);
+        }
+        return false;
+    }
+
     public static void main(String[] args) throws Exception {
 //        AwsClient awsClient = AwsClient.builder().setAccessKey("VKH2MQ8987P15IGIOWGP").setSecretKey("T11431q3pJQdOPlVPnrrv7vPYtYDcSkOvZPYVtnQ").setEndpoint("http://172.16.140.2").build();
 //
