@@ -236,6 +236,13 @@ public class FileUtil {
         return false;
     }
 
+    public static void createFileWithParent(File toCreate) throws IOException {
+        if(!toCreate.getParentFile().exists()||!toCreate.getParentFile().isDirectory())
+            toCreate.getParentFile().mkdirs();
+        if(!toCreate.exists()||!toCreate.isFile())
+            toCreate.createNewFile();
+    }
+
     public static void main(String[] args) throws Exception {
 //        AwsClient awsClient = AwsClient.builder().setAccessKey("VKH2MQ8987P15IGIOWGP").setSecretKey("T11431q3pJQdOPlVPnrrv7vPYtYDcSkOvZPYVtnQ").setEndpoint("http://172.16.140.2").build();
 //
