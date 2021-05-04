@@ -34,6 +34,9 @@ public class ServiceFeignInterceptor implements RequestInterceptor {
             requestTemplate.header("Content-Type", "application/json;charset=UTF-8");
             ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
 
+            if(attributes==null)
+                return;
+
             HttpServletRequest request = attributes.getRequest();
 
             if(request==null)
