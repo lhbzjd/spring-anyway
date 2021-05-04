@@ -31,10 +31,13 @@ public class ServiceFeignInterceptor implements RequestInterceptor {
 //            requestTemplate.header(CommonConstants.CONTEXT_KEY_ORGANIZATION_ID,BaseContextHandler.getCurrentOrganizationId());
 //            requestTemplate.header(CommonConstants.CONTEXT_KEY_FUN_ID,BaseContextHandler.getFunId());
 
+            requestTemplate.header("Content-Type", "application/json;charset=UTF-8");
             ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+
             HttpServletRequest request = attributes.getRequest();
 
-            requestTemplate.header("Content-Type", "application/json;charset=UTF-8");
+            if(request==null)
+                return;
 
             String token = this.getLocalToken(request);
 
