@@ -135,6 +135,13 @@ public class JedisFacade implements DisposableBean {
         return res;
     }
 
+    public Long hincrBy(String key, String field, long value){
+        Jedis jedis = this.getJedis();
+        Long res = jedis.hincrBy(key, field, value);
+        jedis.close();
+        return res;
+    }
+
     @Override
     public void destroy() throws Exception {
         if(autoDestroyPool)
