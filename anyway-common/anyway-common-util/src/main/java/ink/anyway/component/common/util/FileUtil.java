@@ -243,6 +243,22 @@ public class FileUtil {
             toCreate.createNewFile();
     }
 
+    public static boolean writeInputToFile(InputStream srcIs, File targetFile) throws IOException {
+        if(srcIs==null||targetFile==null)
+            return false;
+
+        createFileWithParent(targetFile);
+
+        OutputStream os = new FileOutputStream(targetFile);
+        byte[] b = new byte[8192];
+        int num = 0;
+        while ((num = srcIs.read(b)) != -1) {
+            os.write(b, 0, num);
+        }
+        FileUtil.closeIO(os);
+        return true;
+    }
+
     public static void main(String[] args) throws Exception {
 //        AwsClient awsClient = AwsClient.builder().setAccessKey("VKH2MQ8987P15IGIOWGP").setSecretKey("T11431q3pJQdOPlVPnrrv7vPYtYDcSkOvZPYVtnQ").setEndpoint("http://172.16.140.2").build();
 //
