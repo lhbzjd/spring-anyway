@@ -3,6 +3,7 @@ package ink.anyway.component.common.util;
 import com.sun.image.codec.jpeg.JPEGCodec;
 import com.sun.image.codec.jpeg.JPEGImageEncoder;
 import ink.anyway.component.common.Constants;
+import org.apache.commons.compress.compressors.bzip2.BZip2CompressorOutputStream;
 import org.dcm4che3.imageio.plugins.dcm.DicomImageReadParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -220,6 +221,68 @@ public class FileUtil {
             closeIO(is);
             closeIO(zos);
             closeIO(cos);
+            closeIO(os);
+            return false;
+        }
+    }
+
+    public static boolean bzTwoDecompressFile(File srcFile, File targetFile) {
+        if(srcFile==null||!srcFile.exists()||!srcFile.isFile()){
+            return false;
+        }
+
+        if(targetFile==null){
+            return false;
+        }
+
+        //TODO
+        return false;
+    }
+
+    public static boolean bzTwoCompressFile(File srcFile, File targetFile) {
+
+        if(srcFile==null||!srcFile.exists()||!srcFile.isFile()){
+            return false;
+        }
+
+        if(targetFile==null){
+            return false;
+        }
+
+        BZip2CompressorOutputStream bZip2OutputStream = null;
+        OutputStream os = null;
+        InputStream is = null;
+
+        try{
+            if(!targetFile.exists()||!targetFile.isFile()){
+                if(!targetFile.getParentFile().exists()||!targetFile.getParentFile().isDirectory()){
+                    targetFile.getParentFile().mkdirs();
+                }
+                targetFile.createNewFile();
+            }
+
+            os = new FileOutputStream(targetFile);
+            is = new FileInputStream(srcFile);
+
+            bZip2OutputStream = new BZip2CompressorOutputStream(os, 8);
+
+            int length = 0;
+            byte[] b = new byte[8192];
+            while ((length = is.read(b)) != -1) {
+                bZip2OutputStream.write(b, 0, length);
+            }
+
+            bZip2OutputStream.finish();
+
+            closeIO(bZip2OutputStream);
+            closeIO(os);
+            closeIO(is);
+
+            return true;
+        }catch (Exception ex){
+            logger.error("zip compress file error ...", ex);
+            closeIO(is);
+            closeIO(bZip2OutputStream);
             closeIO(os);
             return false;
         }
