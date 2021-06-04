@@ -280,10 +280,52 @@ public class FileUtil {
 
             return true;
         }catch (Exception ex){
-            logger.error("zip compress file error ...", ex);
+            logger.error("bzip2 compress file error ...", ex);
             closeIO(is);
             closeIO(bZip2OutputStream);
             closeIO(os);
+            return false;
+        }
+    }
+
+    public static boolean copyFile(File srcFile, File targetFile) {
+
+        if(srcFile==null||!srcFile.exists()||!srcFile.isFile()){
+            return false;
+        }
+
+        if(targetFile==null){
+            return false;
+        }
+
+        OutputStream os = null;
+        InputStream is = null;
+
+        try{
+            if(!targetFile.exists()||!targetFile.isFile()){
+                if(!targetFile.getParentFile().exists()||!targetFile.getParentFile().isDirectory()){
+                    targetFile.getParentFile().mkdirs();
+                }
+                targetFile.createNewFile();
+            }
+
+            os = new FileOutputStream(targetFile);
+            is = new FileInputStream(srcFile);
+
+            int length = 0;
+            byte[] b = new byte[8192];
+            while ((length = is.read(b)) != -1) {
+                os.write(b, 0, length);
+            }
+
+            closeIO(os);
+            closeIO(is);
+
+            return true;
+        }catch (Exception ex){
+            logger.error("copy file error ...", ex);
+            closeIO(os);
+            closeIO(is);
             return false;
         }
     }
