@@ -16,6 +16,7 @@
     <modules>
         <module>anyway-persistence-mybatis</module>
         <module>anyway-persistence-hibernate</module>
+        <module>anyway-persistence-sharding</module>
     </modules>
 
 
