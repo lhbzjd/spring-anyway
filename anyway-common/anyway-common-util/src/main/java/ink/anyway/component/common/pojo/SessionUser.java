@@ -21,6 +21,8 @@ public class SessionUser implements Serializable {
 
 	private String tenantId;
 
+	private String tenantGroupId;
+
 	private Set<String> urlAuthorities;
 
 	private Set<String> blockAuthorities;
