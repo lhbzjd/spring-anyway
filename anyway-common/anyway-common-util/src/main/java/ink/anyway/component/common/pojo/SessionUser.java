@@ -29,11 +29,12 @@ public class SessionUser implements Serializable {
 
 	private String token;
 
-	public SessionUser(String id, String username, String realName, String tenantId, Set<String> urlAuthorities, Set<String> blockAuthorities, String token) {
+	public SessionUser(String id, String username, String realName, String tenantId, String tenantGroupId, Set<String> urlAuthorities, Set<String> blockAuthorities, String token) {
 		this.id = id;
 		this.username = username;
 		this.realName = realName;
 		this.tenantId = tenantId;
+		this.tenantGroupId = tenantGroupId;
 		this.urlAuthorities = urlAuthorities;
 		this.blockAuthorities = blockAuthorities;
 		this.token = token;
