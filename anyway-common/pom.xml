@@ -15,6 +15,7 @@
     <description>spring-anyway 公共组件集合</description>
     <modules>
         <module>anyway-common-util</module>
+        <module>anyway-common-i18n-nacos</module>
     </modules>
 
 
