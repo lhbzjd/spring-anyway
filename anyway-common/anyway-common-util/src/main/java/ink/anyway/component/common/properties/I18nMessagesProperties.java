@@ -1,6 +1,5 @@
 package ink.anyway.component.common.properties;
 
-import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Service;
@@ -8,7 +7,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @RefreshScope
-@Data
 @Service
 @ConfigurationProperties(prefix = "spring.anyway.messages")
 public class I18nMessagesProperties {
