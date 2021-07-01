@@ -40,4 +40,59 @@ public class I18nMessagesProperties {
      */
     private List<String> localeCollection;
 
+    public String getBaseFolder() {
+        return baseFolder;
+    }
+
+    public void setBaseFolder(String baseFolder) {
+        this.baseFolder = baseFolder;
+    }
+
+    public String getBasename() {
+        return basename;
+    }
+
+    public void setBasename(String basename) {
+        this.basename = basename;
+    }
+
+    public String getEncoding() {
+        return encoding;
+    }
+
+    public void setEncoding(String encoding) {
+        this.encoding = encoding;
+    }
+
+    public long getCacheMillis() {
+        return cacheMillis;
+    }
+
+    public void setCacheMillis(long cacheMillis) {
+        this.cacheMillis = cacheMillis;
+    }
+
+    public String getNacosNamespace() {
+        return nacosNamespace;
+    }
+
+    public void setNacosNamespace(String nacosNamespace) {
+        this.nacosNamespace = nacosNamespace;
+    }
+
+    public String getNacosGroup() {
+        return nacosGroup;
+    }
+
+    public void setNacosGroup(String nacosGroup) {
+        this.nacosGroup = nacosGroup;
+    }
+
+    public List<String> getLocaleCollection() {
+        return localeCollection;
+    }
+
+    public void setLocaleCollection(List<String> localeCollection) {
+        this.localeCollection = localeCollection;
+    }
 }
