@@ -12,7 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Primary;
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.stereotype.Component;
+import org.springframework.util.ResourceUtils;
 
 import javax.annotation.PostConstruct;
 import java.io.File;
@@ -142,6 +146,17 @@ public class I18nNacosConfig {
         } catch (Exception e) {
             log.error("i18n parameter ["+dataId+"] have cached exception!", e);
         }
+    }
+
+    @Primary
+    @Bean(name = "messageSource")
+    public ReloadableResourceBundleMessageSource messageSource(I18nMessagesProperties i18nMessagesProperties) {
+        String cachePath = ResourceUtils.FILE_URL_PREFIX + System.getProperty("user.dir") + File.separator + i18nMessagesProperties.getBaseFolder() + File.separator + i18nMessagesProperties.getBasename();
+        ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
+        messageSource.setBasename(cachePath);
+        messageSource.setDefaultEncoding(i18nMessagesProperties.getEncoding());
+        messageSource.setCacheMillis(i18nMessagesProperties.getCacheMillis());
+        return messageSource;
     }
 
 }
