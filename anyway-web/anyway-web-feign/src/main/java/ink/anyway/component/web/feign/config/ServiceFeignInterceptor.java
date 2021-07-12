@@ -22,7 +22,7 @@ public class ServiceFeignInterceptor implements RequestInterceptor {
 
     @Override
     public void apply(RequestTemplate requestTemplate) {
-        logger.info("ServiceFeignInterceptor......");
+        logger.debug("ServiceFeignInterceptor......");
 
         try {
 //            requestTemplate.header(jwtMeta.getServiceHeader(), JWTHelper.generateServiceToken(serviceInfo,JWTConstants.JWT_TOKEN_EXPIRE));
