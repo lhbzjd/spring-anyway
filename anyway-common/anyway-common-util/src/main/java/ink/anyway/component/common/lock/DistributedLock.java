@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit;
 @ConditionalOnBean(value=RedissonFacade.class)
 public class DistributedLock {
 
-    private final String disLockPrefix = "Any-DIST-LOCK-";
+    private final String disLockPrefix = "ANY:DIST:LOCK:";
 
     @Autowired
     private RedissonFacade redissonFacade;
