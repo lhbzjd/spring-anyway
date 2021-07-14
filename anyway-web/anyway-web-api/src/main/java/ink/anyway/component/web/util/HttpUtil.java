@@ -48,7 +48,7 @@ public class HttpUtil {
         return ip.equals("0:0:0:0:0:0:0:1") ? "127.0.0.1" : ip;
     }
 
-    public boolean downResponse(File file, HttpServletResponse response, String fileName){
+    public static boolean downResponse(File file, HttpServletResponse response, String fileName){
         boolean res = false;
 
         if(file==null||response==null)
