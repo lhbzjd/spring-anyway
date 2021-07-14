@@ -5,6 +5,11 @@ import org.springframework.http.MediaType;
 import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 public class HttpUtil {
 
@@ -41,5 +46,51 @@ public class HttpUtil {
         }
 
         return ip.equals("0:0:0:0:0:0:0:1") ? "127.0.0.1" : ip;
+    }
+
+    public boolean downResponse(File file, HttpServletResponse response, String fileName){
+        boolean res = false;
+
+        if(file==null||response==null)
+            return res;
+
+        String lastFileName = null;
+
+        if(fileName!=null&&!"".equals(fileName.trim())){
+            lastFileName = fileName.trim();
+        }else{
+            lastFileName = "unknow-file";
+        }
+
+        if(file.exists()&&file.isFile()){
+            InputStream is = null;
+            OutputStream os = null;
+            try{
+                response.setHeader("Content-disposition", "attachment; filename=" + new String(lastFileName.getBytes("GBK"), "ISO8859_1"));
+                is = new FileInputStream(file);
+                os = response.getOutputStream();
+                byte buf[] = new byte[8192];
+                int read;
+                while ((read = is.read(buf)) != -1) {
+                    os.write(buf, 0, read);
+                }
+                res = true;
+            }catch (Exception e){
+                e.printStackTrace();
+            }finally {
+                try{
+                    os.flush();
+                }catch (Exception e){}
+
+                try{
+                    os.close();
+                }catch (Exception e){}
+
+                try{
+                    is.close();
+                }catch (Exception e){}
+            }
+        }
+        return res;
     }
 }
