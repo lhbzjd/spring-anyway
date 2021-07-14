@@ -113,12 +113,12 @@ public class SimulateClient implements OssClient {
 
             int rec = httpResponse.getStatusLine().getStatusCode();
 
-            if (rec == HttpStatus.SC_OK) {
+            if (rec == HttpStatus.SC_OK && httpResponse.getEntity()!=null) {
                 String result = EntityUtils.toString(httpResponse.getEntity());
                 putObjectResult = JSON.parseObject(result, PutObjectResult.class);
                 logger.info("http push file to storage success.");
             }else{
-                logger.error("http push file to storage error["+rec+"]!");
+                logger.error("http push file to storage error["+rec+httpResponse.toString()+"]!");
             }
         } catch (IOException e) {
             logger.error("post http request error!", e);
@@ -165,10 +165,10 @@ public class SimulateClient implements OssClient {
 
             int rec = httpResponse.getStatusLine().getStatusCode();
 
-            if (rec == HttpStatus.SC_OK) {
+            if (rec == HttpStatus.SC_OK && httpResponse.getEntity()!=null) {
                 logger.info("http delete file in storage success.");
             }else{
-                logger.error("http delete file in storage error ["+rec+"]!");
+                logger.error("http delete file in storage error ["+rec+httpResponse.toString()+"]!");
             }
         } catch (IOException e) {
             logger.error("post http request error!", e);
