@@ -11,6 +11,7 @@ import com.amazonaws.client.builder.AwsClientBuilder;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.*;
+import ink.anyway.component.common.s3.top.OssClient;
 import ink.anyway.component.common.util.StringUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,11 +20,10 @@ import org.springframework.beans.factory.DisposableBean;
 import java.io.*;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-public class AwsClient implements DisposableBean {
+public class AwsClient implements OssClient, DisposableBean {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
