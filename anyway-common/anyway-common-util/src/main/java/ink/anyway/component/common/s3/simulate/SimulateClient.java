@@ -91,8 +91,6 @@ public class SimulateClient implements OssClient {
         try {
             HttpPost httpPost = new HttpPost(endpoint);
 
-            InputStreamBody isBody = new InputStreamBody(input,
-                    ContentType.MULTIPART_FORM_DATA);
             StringBody bucketNameBody = new StringBody(bucketName,
                     ContentType.create("text/plain", Consts.UTF_8));
             StringBody objectKeyBody = new StringBody(objectKey, ContentType.create(
@@ -100,7 +98,7 @@ public class SimulateClient implements OssClient {
 
             HttpEntity reqEntity = MultipartEntityBuilder.create()
                     .setMode(HttpMultipartMode.BROWSER_COMPATIBLE)
-                    .addPart("inputFile", isBody)
+                    .addBinaryBody("inputFile", input, ContentType.MULTIPART_FORM_DATA, "temp-put-file")
                     .addPart("bucketName", bucketNameBody)
                     .addPart("objectKey", objectKeyBody)
                     .setCharset(Consts.UTF_8)
