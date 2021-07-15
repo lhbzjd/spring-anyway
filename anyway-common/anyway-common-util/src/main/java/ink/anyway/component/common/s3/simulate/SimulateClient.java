@@ -179,4 +179,9 @@ public class SimulateClient implements OssClient {
                 }
         }
     }
+
+    @Override
+    public void setBucketPolicy(String bucketName, String policy) {
+
+    }
 }

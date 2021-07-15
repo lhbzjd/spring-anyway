@@ -14,4 +14,6 @@ public interface OssClient {
 
     public void deleteObject(String bucketName, String objectKey) throws AmazonClientException;
 
+    public void setBucketPolicy(String bucketName, String policy);
+
 }
