@@ -2,7 +2,9 @@ package ink.anyway.component.common.s3.simulate;
 
 import com.alibaba.fastjson.JSON;
 import com.amazonaws.AmazonClientException;
+import com.amazonaws.SdkClientException;
 import com.amazonaws.services.s3.model.ObjectMetadata;
+import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.services.s3.model.PutObjectResult;
 import ink.anyway.component.common.s3.top.OssClient;
 import org.apache.http.Consts;
@@ -20,7 +22,6 @@ import org.apache.http.conn.ssl.TrustSelfSignedStrategy;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.mime.HttpMultipartMode;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
-import org.apache.http.entity.mime.content.InputStreamBody;
 import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.DefaultHttpRequestRetryHandler;
@@ -138,6 +139,11 @@ public class SimulateClient implements OssClient {
     }
 
     @Override
+    public PutObjectResult putObject(PutObjectRequest putObjectRequest) throws SdkClientException {
+        return this.putObject(putObjectRequest.getBucketName(), putObjectRequest.getKey(), putObjectRequest.getInputStream());
+    }
+
+    @Override
     public void deleteObject(String bucketName, String objectKey) throws AmazonClientException {
         CloseableHttpResponse httpResponse = null;
 
@@ -180,8 +186,4 @@ public class SimulateClient implements OssClient {
         }
     }
 
-    @Override
-    public void setBucketPolicy(String bucketName, String policy) {
-
-    }
 }
