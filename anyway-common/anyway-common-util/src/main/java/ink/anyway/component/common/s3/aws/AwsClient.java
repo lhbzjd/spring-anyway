@@ -20,6 +20,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * 支持亚马逊云对象存储S3协议，或者使用minio等第三方工具搭建的私有单机版对象存储S3协议
+ */
 public class AwsClient implements OssClient, DisposableBean {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
