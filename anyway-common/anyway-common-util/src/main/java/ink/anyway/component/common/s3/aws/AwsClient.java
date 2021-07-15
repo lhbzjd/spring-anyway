@@ -1,9 +1,6 @@
 package ink.anyway.component.common.s3.aws;
 
-import com.amazonaws.AmazonClientException;
-import com.amazonaws.ClientConfiguration;
-import com.amazonaws.HttpMethod;
-import com.amazonaws.Protocol;
+import com.amazonaws.*;
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
@@ -162,6 +159,10 @@ public class AwsClient implements OssClient, DisposableBean {
                 input, metadata);
     }
 
+    public PutObjectResult putObject(PutObjectRequest putObjectRequest) throws SdkClientException{
+        return this.conn.putObject(putObjectRequest);
+    }
+
     public S3Object getObject(String bucketName, String key) throws AmazonClientException {
         return this.conn.getObject(
                 new GetObjectRequest(bucketName, key)
@@ -199,6 +200,16 @@ public class AwsClient implements OssClient, DisposableBean {
 
     public void setBucketPolicy(final SetBucketPolicyRequest request){
         this.conn.setBucketPolicy(request);
+    }
+
+    public void setBucketAcl(String bucketName, AccessControlList acl)
+            throws SdkClientException, AmazonServiceException{
+        this.conn.setBucketAcl(bucketName, acl);
+    }
+
+    public void setBucketAcl(String bucketName, CannedAccessControlList acl)
+            throws SdkClientException, AmazonServiceException{
+        this.conn.setBucketAcl(bucketName, acl);
     }
 
     public List<S3ObjectSummary> listPhaseFiles(String bucketName, String prefix, String marker, String delimiter, Integer maxKeys){
