@@ -131,6 +131,25 @@ public class EncDecUtil {
 
 
     public static void main(String[] args) throws Exception {
+
+//        KeyPairGenerator keyPairGen = KeyPairGenerator.getInstance("RSA");
+//        keyPairGen.initialize(1024);
+//
+//        KeyPair keyPair = keyPairGen.generateKeyPair();
+//
+//        PublicKey publicKey = keyPair.getPublic();
+//        PrivateKey privateKey = keyPair.getPrivate();
+//
+//        ObjectOutputStream pubOos = new ObjectOutputStream(new FileOutputStream("D:\\thumbnail\\encrypt-key\\pubSecret.key"));
+//        ObjectOutputStream priOos = new ObjectOutputStream(new FileOutputStream("D:\\thumbnail\\encrypt-key\\priSecret.key"));
+//
+//        pubOos.writeObject(publicKey);
+//        priOos.writeObject(privateKey);
+//
+//        FileUtil.closeIO(priOos);
+//        FileUtil.closeIO(pubOos);
+
+
 //        InputStream is = new FileInputStream("D:\\thumbnail\\dicom_02400028_S_100135.bz2");
 //        InputStream is = new FileInputStream("D:\\thumbnail\\encCache.bz2");
 //        OutputStream encOs = new FileOutputStream("D:\\thumbnail\\encCache.bz2");
