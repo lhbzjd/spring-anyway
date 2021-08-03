@@ -141,7 +141,7 @@ public class I18nNacosConfig {
         try {
             String fileName = StringUtil.compose(System.getProperty("user.dir"), File.separator, i18nMessagesProperties.getBaseFolder(), File.separator, dataId, ".properties");
             File file = new File(fileName);
-            FileUtils.writeStringToFile(file, content);
+            FileUtils.writeStringToFile(file, content, "UTF-8", false);
             log.info("i18n parameters have cached! local cache file:{}", fileName);
         } catch (Exception e) {
             log.error("i18n parameter ["+dataId+"] have cached exception!", e);
