@@ -89,7 +89,6 @@ public class I18nNacosConfig {
     private void initTip(Locale locale) {
         String dataId = null;
         try {
-            String content = null;
 
             if (locale == null) {
                 dataId = i18nMessagesProperties.getBasename();
@@ -99,32 +98,28 @@ public class I18nNacosConfig {
                     dataId+=("_" + locale.getCountry());
                 }
             }
+
             Properties properties = new Properties();
             properties.put(PropertyKeyConst.SERVER_ADDR, serverAddr);
             if(StringUtil.isValid(i18nNamespace)){
                 properties.put(PropertyKeyConst.NAMESPACE, i18nNamespace);
             }
             ConfigService configService = NacosFactory.createConfigService(properties);
-            content = configService.getConfig(dataId, i18nGroup, 5000);
-            if (!StringUtil.isValid(content)) {
-                log.warn("i18n parameter is null, skip this! dataId:{}", dataId);
-                return;
-            }
-            log.info("i18n parameter[{}] will init!", dataId);
-            saveAsFileWriter(dataId, content);
-            setListener(configService, dataId, locale);
+
+            writeFileFromNacos(configService, dataId);
+            setListener(configService, dataId);
         } catch (Exception e) {
             log.error(StringUtil.compose("i18n parameter [", dataId, "] have cached exception!"), e);
         }
     }
 
-    private void setListener(ConfigService configService, String dataId, Locale locale) throws com.alibaba.nacos.api.exception.NacosException {
+    private void setListener(ConfigService configService, String dataId) throws com.alibaba.nacos.api.exception.NacosException {
         configService.addListener(dataId, i18nGroup, new Listener() {
             @Override
             public void receiveConfigInfo(String configInfo) {
                 log.info("receive new i18n parameters! refreshing...");
                 try {
-                    initTip(locale);
+                    writeFileFromNacos(configService, dataId);
                 } catch (Exception e) {
                     log.error("refresh i18n parameters exception!", e);
                 }
@@ -135,6 +130,20 @@ public class I18nNacosConfig {
                 return null;
             }
         });
+    }
+
+    private void writeFileFromNacos(ConfigService configService, String dataId){
+        try {
+            String content = configService.getConfig(dataId, i18nGroup, 5000);
+            if (!StringUtil.isValid(content)) {
+                log.warn("i18n parameter is null, skip this! dataId:{}", dataId);
+                return;
+            }
+            log.info("i18n parameter[{}] will init!", dataId);
+            saveAsFileWriter(dataId, content);
+        } catch (Exception e) {
+            log.error(StringUtil.compose("i18n parameter [", dataId, "] have cached exception!"), e);
+        }
     }
 
     private void saveAsFileWriter(String dataId, String content) {
